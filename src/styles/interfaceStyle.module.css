@@ -1,0 +1,25 @@
+.container {
+    box-shadow: 0 0 15px grey;
+    background-size: cover;
+    background-position: center;
+    width: 180px;
+    color: #000;
+    margin: .95rem;
+    border-radius: 8%;
+    border: 2px solid black;
+}
+.container:hover{
+    cursor:pointer;
+    transform:scale(1.02);
+    transition-duration:.4s
+}
+.cardValue {
+    margin: .2rem;
+    color: red;
+    font-weight: 700;
+    font-size: xx-large;
+    text-shadow:0 0 2.5px white;
+}
+.smallImage{
+    max-width:100%
+}

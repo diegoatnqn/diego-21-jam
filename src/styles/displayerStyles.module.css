@@ -1,0 +1,19 @@
+.container{
+    display:flex;
+    padding:1.5rem .9rem;
+    align-items:center
+}
+.imageCol{
+    width:60%
+}
+
+.descriptionCol{
+    width:40%
+}
+.imageVisualizador{
+    max-width:100%
+}
+.imageVisualizador:hover {
+    cursor:pointer;
+    border:.6px solid grey;
+}  

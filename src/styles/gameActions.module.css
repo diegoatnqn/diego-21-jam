@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+.sumDisplayer {
+    display: flex;
+}
+.col {
+    display:inline-block;
+    margin:1.4rem;
+}
+.container {
+    text-align: center;
+    font-family: 'Russo One', sans-serif;
+}
+.buttonRow {
+    display: flex;
+    margin: 1.2rem auto;
+    place-content: space-evenly
+}
+.pure-button-secondary {
+    background: rgb(66, 184, 221);
+    /* this is a light blue */
+}
