@@ -1,7 +1,10 @@
 .App,.header {
   height:96.2%;
 }
-
+nav{
+    display:flex;
+    align-items:center;
+}
 .mine {
     width:50%;
     background-color:lightblue;
@@ -27,6 +30,26 @@
     display:flex;
 }
 .titulo{
-    margin:0;
-    text-align:center;
+    margin:.55rem auto;
+    display:inline-block;
+}
+.reglas{
+    position:absolute;
+    right:4rem;
+}
+.inside-reglas {
+    box-shadow: 0 0 18px rgb(0 0 0 / 15%);
+    padding: .8rem;
+}
+.pure-menu-children {
+    left:-315px!important
+}
+@media screen and (max-width:412px){
+    .mine,.dealer{
+        flex-wrap:wrap;
+        align-content:stretch;
+    }
+    .reglas {
+        display:none!important;
+    }
 }

@@ -17,3 +17,8 @@
     cursor:pointer;
     border:.6px solid grey;
 }  
+@media screen and (max-width:412px){
+    .container{
+        display:block;
+    }
+}

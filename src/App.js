@@ -131,7 +131,28 @@ const App = () => {
 
   return (
       <div className="App">
-          <h2 className="titulo">Maradona 21</h2>
+          <nav className="pure-menu pure-menu-horizontal">
+              <h2 className="titulo">Maradona 21</h2>
+              <ul class="reglas pure-menu-list">
+                  
+                  <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                      <a href="#" id="menuLink1" class="pure-menu-link">Reglas</a>
+                      <ul class="pure-menu-children">
+                          <li class="pure-menu-item">
+                              <div className="inside-reglas"                              >
+                                   Mira tus cartas, juega hasta acercarte a 21. Si lo pasas, pierdes.<hr />
+                                  
+                                   Cuando termines, plantate y el juego tratara de superarte.<hr />
+                                  
+                                   Puedes visualizar cada tarjeta y ver la descripcion. <br />Tambien en presentacion (click a la foto)
+                                  
+                              </div>
+                          </li>
+                      </ul>
+                  </li>
+            </ul>
+          </nav>
+          
           
           <header className="header">
               <div className="firstRow rows">
