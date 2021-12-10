@@ -5,6 +5,7 @@
 .col {
     display:inline-block;
     margin:auto 1.4rem;
+    font-size:1.55rem;
 }
 .container {
     text-align: center;
@@ -21,4 +22,7 @@
 }
 .pure-button {
     font-weight:bold;
+}
+h3{
+    font-size:1.95rem
 }
