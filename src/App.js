@@ -3,7 +3,7 @@ import './App.css';
 import myDeck from './components/myDeck'
 import ShowCard from './components/interface'
 import GameActions from './components/gameActions';
-import PicDisplayer from './components/picDisplayer'
+import PicDisplayer from './components/picDisplayer';
 require('purecss')
 
 const App = () => {
@@ -15,7 +15,7 @@ const App = () => {
     const [currentDeck, setCurrentDeck] = useState(myDeck);
     const [currentPlayer, setCurrentPlayer] = useState("player");
     const [imageToShow, setImageToShow] = useState({});
-    
+    //MicroModal.init();
     const start = () => {
         setMyHand([currentDeck[0], currentDeck[1]]);
         setDealerHand([currentDeck[2]]);
@@ -33,9 +33,10 @@ const App = () => {
             result =result + myHand[i].Weight;
         }
         
-        setMyHandResult(result, check());
+        setMyHandResult(result);
         
     }
+
     const calcularManoDealer = () => {
         let result = 0;
         
@@ -43,14 +44,12 @@ const App = () => {
             
             result = result + dealerHand[i].Weight;
         }
-        
-        setDealerHandResult(result, check());
-        
+        setDealerHandResult(result);
     }
 
     const myNextCard = () => {
         let nextCard = currentDeck.shift();
-        myHand.push(nextCard);
+        setMyHand([...myHand,nextCard]);
         calcularMiMano()        
     }
 
@@ -65,14 +64,18 @@ const App = () => {
                     finDelJuego("player")
                 } else if (dealerHandResult > myHandResult) {
                     finDelJuego("dealer")
-                }
-                ; break;
+                } else {
+                    nextCardDealer(); break;
+                }; break;
+            default:
+                console.log("Default")
+                nextCardDealer(); break;
         }
     }
 
     const finDelJuego = (winner) => {
         let nuevapartida = window.confirm("Ganador " + winner)
-        if (nuevapartida) {
+        
             setMyHand([]);
             setDealerHand([]);
             setMyHandResult();
@@ -80,54 +83,33 @@ const App = () => {
             setCurrentPlayer('player');
             setImageToShow('')
             start()
-        }
+        
 
     }
 
     const nextCardDealer = () => {
         let nextCard = currentDeck.shift();
-        dealerHand.push(nextCard);
-        calcularManoDealer()
-        //si check() no termina el juego, pido otra carta inmediatamente
-        if (evaluarJuego()) {
-            nextCard = currentDeck.shift();
-            dealerHand.push(nextCard);
-            calcularManoDealer(); //este metodo tiene useeffect para check()
-        }
+        setDealerHand([...dealerHand,nextCard]);
     }
-
-    const evaluarJuego = () => {
-        let sigue = true;
-        //condiciones para terminar el juego
-        if (((dealerHandResult > myHandResult) && (dealerHandResult <= 21)) || dealerHandResult > 21) {
-            sigue = false;
-        }
-        return sigue;
-    }
-
 
     const mePlanto = () => {
         setCurrentPlayer("dealer")
         nextCardDealer()   
     }
+    useEffect(() => {
+        
+        calcularManoDealer()
+    },[dealerHand])
 
-
-    useEffect(() => { check() }, [myHandResult, dealerHandResult]); //En cada cambio de resultado, ejecuto check()
+    useEffect(() => {
+        setTimeout(()=>(myHandResult && dealerHandResult > 1) && check(),650)
+        
+    }, [myHandResult, dealerHandResult]); //En cada cambio de resultado, ejecuto check()
 
     useEffect(calcularMiMano, [myHand]);        //este y el de abajo es para tener un resultado apenas carga la pagina
-    useEffect(calcularManoDealer, [dealerHand]);
+    
 
-    useEffect(start, []);   //start apenas arranca el juego
-
-    //useEffect(() => { console.log(imageToShow.description) }, [imageToShow]);
-
-    /* const dealerCardsUI =()=> dealerHand.map((card,index) => {
-
-        return <ShowCard key={index} value={card.Value} palo={card.Suite} num={card.Weight}
-            img={card.img}
-            description={card.description} click={setImageToShow} />
-    })
-    */
+    useEffect(start, []);
 
   return (
       <div className="App">
@@ -166,7 +148,7 @@ const App = () => {
                   </div>
                   <div className="infoDisplayer">
                       {imageToShow.src ?
-                          <PicDisplayer img={imageToShow.src} description={imageToShow.description} /> : ""
+                          <PicDisplayer img={imageToShow.src} description={imageToShow.description} /> : false
                       }
                   </div>
               </div>
@@ -175,7 +157,6 @@ const App = () => {
                       <GameActions sigo={() => myNextCard()} mePlanto={() => mePlanto()} mySum={myHandResult} dealerSum={dealerHandResult} />
                   </div>
                   <div className="mine">
-                      
                   {myHand.map((card,index) => {
                       return (
                           <ShowCard key={index} value={card.Value} palo={card.Suit} num={card.Weight}
@@ -185,7 +166,7 @@ const App = () => {
                   })}
                   </div>
               </div>
-      </header>
+          </header>
     </div>
   );
 }
